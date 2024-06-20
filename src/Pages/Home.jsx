@@ -30,7 +30,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar/>
         <h2 className="text-black text-2xl md:text-3xl lg:text-4xl pt-8 ml-8">
           Our Products

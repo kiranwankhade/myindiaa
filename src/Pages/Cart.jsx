@@ -110,7 +110,7 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
 
       <div className="container mx-auto mt-8">

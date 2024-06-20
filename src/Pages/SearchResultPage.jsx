@@ -30,7 +30,7 @@ const SearchResultPage = () => {
   const isPrevDisabled = currentPage === 1;
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar/>
       <div className="flex flex-row items-start">
          <Link
@@ -93,7 +93,7 @@ const SearchResultPage = () => {
           )}
         </div>
     </div>
-    </>
+    </div>
   );
 };
 

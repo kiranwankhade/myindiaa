@@ -55,7 +55,7 @@ const Orders = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="container mx-auto mt-20">
         <div className="flex justify-between items-center">
@@ -121,7 +121,7 @@ const Orders = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -323,7 +323,7 @@ function Wishlist() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <h1 className="text-4xl font-bold mt-6 mb-2 text-red-900 ">Wishlist</h1>
       <Link

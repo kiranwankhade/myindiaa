@@ -10,6 +10,7 @@ const Navbar = () => {
   const [user, loading, authError] = useAuthState(auth);
   const products = useSelector((state) => state.products.items);
   const [search, setSearch] = useState("");
+  const [showMenu, setShowMenu] = useState(false); // State to toggle menu on small screens
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,13 +34,48 @@ const Navbar = () => {
     });
   };
 
+  const closeMenu = () => {
+    setShowMenu(false);
+  };
+
   return (
-    <header className="bg-gray-800 text-white">
-      <nav className="flex flex-col md:flex-row md:justify-between items-center p-1">
-        <Link to="/">
-          <img src={logo} alt="Logo" className="w-20 h-14 md:w-20 md:h-20" />
-        </Link>
-        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mt-2 md:mt-0">
+    <header className="bg-gray-800 text-white relative">
+      <nav className="flex justify-between items-center p-4">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="Logo" className="w-20 h-14 md:w-20 md:h-20 mr-2" />
+            <span className="hidden md:block">My India</span>
+          </Link>
+        </div>
+        {/* Hamburger icon for small screens */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="block text-gray-500 hover:text-white focus:text-white focus:outline-none"
+          >
+            <svg
+              className="h-6 w-6 fill-current"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {showMenu ? (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M19 13H5v-2h14v2zm0-5H5V6h14v2zm0 10H5v-2h14v2z"
+                />
+              ) : (
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M4 6h16v2H4V6zm0 7h16v2H4v-2zm0 7h16v2H4v-2z"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+        {/* Menu for medium and large screens */}
+        <div className="hidden md:flex flex-col md:flex-row items-center gap-2 md:gap-4">
           <input
             type="text"
             placeholder="Search Products"
@@ -54,48 +90,102 @@ const Navbar = () => {
           >
             Search
           </button>
+          <ul className="flex flex-col md:flex-row md:space-x-6 text-center">
+            <li className="mt-4">
+              <Link to="/">Home</Link>
+            </li>
+            {user ? (
+              <>
+                <li className="mt-4">
+                  <Link to="/cart">Cart</Link>
+                </li>
+                <li className="mt-4">
+                  <Link to="/wishlist">Wishlist</Link>
+                </li>
+                <li className="mt-4">
+                  <Link to="/orders">Orders</Link>
+                </li>
+                <li className="cursor-pointer mt-4" onClick={handleLogout}>
+                  Logout
+                </li>
+                <li className="flex flex-col items-center justify-center md:justify-end px-4">
+                  {user.photoURL && (
+                    <img
+                      src={user.photoURL}
+                      alt="Profile"
+                      className="w-10 h-10 rounded-full mr-2"
+                    />
+                  )}
+                  <p>{user.displayName}</p>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/sign-up">Sign Up</Link>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
-        <ul className="flex flex-col md:flex-row md:space-x-6 text-center mt-4 md:mt-0">
-          <li className="mt-4">
-            <Link to="/">Home</Link>
-          </li>
-          {user ? (
-            <>
-              <li className="mt-4">
-                <Link to="/cart">Cart</Link>
-              </li>
-              <li className="mt-4">
-                <Link to="/wishlist">Wishlist</Link>
-              </li>
-              <li className="mt-4">
-                <Link to="/orders">Orders</Link>
-              </li>
-              <li className="cursor-pointer mt-4" onClick={handleLogout}>
-                Logout
-              </li>
-              <li className="flex flex-col items-center justify-center md:justify-end px-4">
-                {user.photoURL && (
-                  <img
-                    src={user.photoURL}
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full mr-2"
-                  />
-                )}
-                <p>{user.displayName}</p>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="mt-4">
-                <Link to="/login">Login</Link>
-              </li>
-              <li className="mt-4">
-                <Link to="/sign-up">Sign Up</Link>
-              </li>
-            </>
-          )}
-        </ul>
       </nav>
+
+      {/* Drawer for small screens */}
+      {showMenu && (
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-end bg-black bg-opacity-50"
+          onClick={closeMenu}
+        >
+          <div
+            className="bg-gray-800 text-white w-1/2 h-full p-4"
+            onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the drawer
+          >
+            <ul className="flex flex-col space-y-4">
+              <li>
+                <Link to="/" onClick={closeMenu}>Home</Link>
+              </li>
+              {user ? (
+                <>
+                  <li>
+                    <Link to="/cart" onClick={closeMenu}>Cart</Link>
+                  </li>
+                  <li>
+                    <Link to="/wishlist" onClick={closeMenu}>Wishlist</Link>
+                  </li>
+                  <li>
+                    <Link to="/orders" onClick={closeMenu}>Orders</Link>
+                  </li>
+                  <li className="cursor-pointer" onClick={() => { handleLogout(); closeMenu(); }}>
+                    Logout
+                  </li>
+                  <li className="flex flex-col items-center justify-center md:justify-end px-4">
+                    {user.photoURL && (
+                      <img
+                        src={user.photoURL}
+                        alt="Profile"
+                        className="w-10 h-10 rounded-full mr-2"
+                      />
+                    )}
+                    <p>{user.displayName}</p>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login" onClick={closeMenu}>Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/sign-up" onClick={closeMenu}>Sign Up</Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
