@@ -343,18 +343,18 @@ function Wishlist() {
             <img src={noWishList} alt="Empty Wishlist" className="w-90 h-50" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6 justify-center">
             {localWishlist.map((item) => (
               <div
                 key={item.id}
-                className="w-full bg-white p-4 rounded-lg shadow-md"
+                className="w-full bg-white p-4 rounded-lg shadow-md "
               >
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-80 rounded-lg h-60 object-cover mb-4"
                 />
-                <h2 className="text-lg truncate w-5/6  font-semibold mb-2">
+                <h2 className="text-lg truncate w-5/6  font-semibold mb-2 text-center">
                   {item.name}
                 </h2>
                 <p className="text-center mt-5 text-2xl font-semibold text-red-500">
@@ -365,7 +365,7 @@ function Wishlist() {
                 </div>
                 <div className="flex justify-between">
                   <button
-                    className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg"
+                    className="flex items-center gap-2 bg-black text-white px-2 py-2 rounded-lg"
                     onClick={() => handleRemoveFromWishlist(item.id)}
                   >
                     Remove from Wishlist <FaHeartCircleXmark />

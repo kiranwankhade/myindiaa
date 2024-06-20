@@ -101,11 +101,13 @@ const Cart = () => {
             throw error; // This will stop the Promise.all execution if any error occurs
           }
         })
-      );
-      const totalPriceQueryParam = `?totalPrice=${total.toFixed(2)}`;
-      window.location.href = `/payment${totalPriceQueryParam}`;
+      ).then(()=>{
+        const totalPriceQueryParam = `?totalPrice=${total.toFixed(2)}`;
+        window.location.href = `/payment${totalPriceQueryParam}`;
+      });
+     
     } catch (error) {
-      console.error("Error sending cart data to watchlist:", error);
+      console.error("Error sending cart data to watchlist:", error.message);
     }
   };
 

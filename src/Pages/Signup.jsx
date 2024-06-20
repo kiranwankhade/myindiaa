@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {  loginWithGoogle, loginWithEmailAndPassword } from "../Redux/Auth/auth.actions";
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -10,9 +11,7 @@ function SignUp() {
   const [usernameError, setUsernameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
-  const user =  useSelector((state)=> state.auth.user)
-  const loading = useSelector((state) => state.auth.loading);
-  const error = useSelector((state) => state.auth.error);
+  const [user, loading, authError] = useAuthState(auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,16 +46,20 @@ function SignUp() {
     }
 
     try {
-        await dispatch(loginWithEmailAndPassword(email, password));
-        navigate("/");
-      } catch (err) {
-        setPasswordError("Login failed. Please check your email and password.");
-      }
+      await logInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error("Login failed:", err);
+      setPasswordError("Login failed. Please check your email and password.");
+    }
   };
 
 
   const handleWithGoogle = async()=>{
-    await dispatch(loginWithGoogle())
+    try {
+      await signInWithGoogle();
+    } catch (err) {
+      console.error("Google sign-in failed:", err);
+    }
   }
   useEffect(() => {
     if (loading) {
@@ -66,10 +69,10 @@ function SignUp() {
   }, [user, loading, navigate]);
 
   useEffect(() => {
-    if (error) {
-      setPasswordError(error.message || "An error occurred during sign up.");
+    if (authError) {
+      setPasswordError(authError.message || "An error occurred during sign up.");
     }
-  }, [error]);
+  }, [authError]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">

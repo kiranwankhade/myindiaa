@@ -91,9 +91,7 @@ const Navbar = () => {
             Search
           </button>
           <ul className="flex flex-col md:flex-row md:space-x-6 text-center">
-            <li className="mt-4">
-              <Link to="/">Home</Link>
-            </li>
+          
             {user ? (
               <>
                 <li className="mt-4">

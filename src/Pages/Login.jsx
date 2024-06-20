@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginWithEmailAndPassword, loginWithGoogle } from "../Redux/Auth/auth.actions";
-import { useDispatch, useSelector } from "react-redux";
 import { logInWithEmailAndPassword, signInWithGoogle,auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -39,13 +37,18 @@ function Login() {
       try {
         await logInWithEmailAndPassword(auth, email, password);
       } catch (err) {
+        console.error("Login failed:", err);
         setPasswordError("Login failed. Please check your email and password.");
       }
     }
   };
 
   const handleWithGoogle = async () => {
-    await signInWithGoogle();
+    try{
+      await signInWithGoogle();
+    } catch (err) {
+      console.error("Google sign-in failed:", err);
+    }
   };
 
   useEffect(() => {
