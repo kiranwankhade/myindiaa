@@ -38,12 +38,4 @@ npm start
 
 [Github Link](https://github.com/kiranwankhade/myindiaa)
 
-##Some Images of Website 
-
-#Home Page
-
-## Login
-
-## Details
-
-# Payment
+[Demo Video Link](https://drive.google.com/file/d/1d0EzQxORP6vuAFW9aF6OEZzhQn5tmvGY/view?usp=sharing)
