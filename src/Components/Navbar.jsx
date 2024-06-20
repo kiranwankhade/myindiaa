@@ -15,7 +15,9 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser()).then(() => {
+      window.location.reload(); // Replace the current entry in the history stack
+    });
   };
 
   const handleKeyPress = (e) => {

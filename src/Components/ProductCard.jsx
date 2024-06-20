@@ -29,6 +29,8 @@ const ProductCard = ({ product }) => {
   const handleAddCart = async () => {
     if (!user) {
       setShowAlert(true);
+      setIsWishlisted(false)
+      setIsCart(false)
       setAlertMessage("Please sign in first.");
       return;
     }
@@ -100,7 +102,9 @@ const ProductCard = ({ product }) => {
   };
 
   useEffect(() => {
-    checkWishlist();
+    if (user) {
+        checkWishlist();
+    }
   }, []);
 
   useEffect(() => {
@@ -112,7 +116,7 @@ const ProductCard = ({ product }) => {
       return () => clearTimeout(timeout);
     }
   }, [showAlert]);
-  
+
   return (
     <div className="bg-gray-200 rounded-lg shadow-lg w-80">
       <Link to={`/${product.id}`}>
