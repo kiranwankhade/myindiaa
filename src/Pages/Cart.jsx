@@ -91,9 +91,19 @@ const Cart = () => {
   };
 
   const handlePayment = async () => {
+    
     try {
+      const response = await axios.get("https://cyclicbackend.onrender.com/watchList");
+      const watchlist = response.data;
+      
+      // Check if any of the items in localCart already exist in the watchlist
+      const existingItems = watchlist.filter(item => localCart.some(cartItem => cartItem.id === item.id));
+  
+      // Remove existing items from localCart
+      const itemsToAdd = localCart.filter(item => !existingItems.some(existingItem => existingItem.id === item.id));
+  
       await Promise.all(
-        localCart.map(async (cart) => {
+        itemsToAdd.map(async (cart) => {
           try {
             await axios.post("https://cyclicbackend.onrender.com/watchList", cart);
           } catch (error) {
