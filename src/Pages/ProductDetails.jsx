@@ -198,7 +198,7 @@ useEffect(() => {
             </button>
           </div>
           {showAlert && (
-        <div className="mt-4 w-60 m-auto">
+        <div className="mt-4 w-60 ">
         <Alert
           type={alertMessage.includes("Already") ? "warning" : "success"}
           message={alertMessage}
