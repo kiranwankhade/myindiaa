@@ -4,32 +4,51 @@ In this project, I focused on implementing a progressive way.
 
 ### Once logged in, users can:
 - Home Page
-- login and sign-up
+- Log in and sign-up
+- logout
 - product details page
 - Add products to their shopping cart
 - Update the quantity, or Remove items
 - See the total cost
 - Payment method
 - orders
-- search page
+- Search page
 - offline page if network not available
 
-The database includes 3 models: Home, User, Products and Cart,wishlist. When a user add a product to his cart, a new "cart item" will be added
-to the Cart model with the product id. 
+The database includes 3 models: Home, User, Products and Cart, and Wishlist, orders. 
+A new "cart item" will be added
+to the Cart model with the product ID when a user adds a product to his cart. 
+
+## Login With Firebase Authentications
 
 ## How to run this application locally
 
-To install all the packages, run:
+## Installation
 
-```
-npx create react-App application
+To set up and run the project locally, follow these steps:
+
+**Step 1:** Clone the repository:
+
+```bash
+git clone https://github.com/kiranwankhade/myindiaa
 ```
 
-Then run:
+**Step 2:** Navigate to the project directory:
 
+```bash
+cd frontend/
 ```
-cd application
-npm start 
+
+**Step 3:** Install the required packages:
+
+```bash
+npm install
+```
+
+**Step 4:** Run the Project:
+
+```bash
+npm run start
 ```
 
 ## Link for Visit
