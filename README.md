@@ -38,7 +38,7 @@ git clone https://github.com/kiranwankhade/myindiaa
 **Step 2:** Navigate to the project directory:
 
 ```bash
-cd frontend/
+cd myindiaa
 ```
 
 **Step 3:** Install the required packages:
