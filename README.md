@@ -7,6 +7,8 @@ In this project, I focused on implementing a progressive way.
 - Log in and sign-up
 - logout
 - product details page
+- Add products to their wishlist
+- Remove Items From wishlist
 - Add products to their shopping cart
 - Update the quantity, or Remove items
 - See the total cost
